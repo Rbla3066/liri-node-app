@@ -1,3 +1,4 @@
+
 var fs = require("fs");
 var keys = require("./keys.js");
 var request = require("request");
@@ -43,8 +44,10 @@ function getTweets(){
 	    }
 	    for (i=0;i<totalTweets;++i){
 	    	console.log(tweets[i].created_at+": "+tweets[i].text);
+	    	logString(tweets[i].created_at+": "+tweets[i].text);
 	    }
 	    	console.log("\n");
+	    	logString("\n")
 	  }else{console.log(error)}
 	});
 };
@@ -56,6 +59,10 @@ function getSong(uParam){
 		console.log("Song:" + song.name)
 		console.log("Preview: " + song.preview_url)
 		console.log("Album: " + song.album.name)
+		logString("\nArtist: " + song.artists[0].name)
+		logString("\nSong:" + song.name)
+		logString("\nPreview: " + song.preview_url)
+		logString("\nAlbum: " + song.album.name)
 	})
 };
 function getMovie(uParam){
@@ -71,6 +78,14 @@ function getMovie(uParam){
 			console.log("IMDB Rating: " + mov.imdbRating);
 			console.log("Rotten Tomatoes Rating: " + mov.tomatoRating);
 			console.log("Rotten Tomatoe URL: " + mov.tomatoURL);
+			logString("\n\nTitle: " + mov.Title);
+			logString("\nYear: " + mov.Year);
+			logString("\nCountry: " + mov.Country);
+			logString("\nLanguage: " + mov.Language);
+			logString("\nActors: " + mov.Actors);
+			logString("\nIMDB Rating: " + mov.imdbRating);
+			logString("\nRotten Tomatoes Rating: " + mov.tomatoRating);
+			logString("\nRotten Tomatoe URL: " + mov.tomatoURL);
 		};
 	});
 };
@@ -81,3 +96,8 @@ function doWhatItSays(){
 		directUser(params[0], params[1]);
 	});
 };
+function logString(str){
+	fs.appendFile("log.txt", str, function(err){
+		if(err) console.log(err);
+	})
+}
